@@ -2,18 +2,22 @@ package nic;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Iterator;
+import java.util.Properties;
 
 import nic.api.IDownloader;
 import nic.api.defence.TrackCorruptException;
 
 public class Program {
 	public static int MAJOR = 0;
-	public static int MINOR = 1;
-	public static short RELEASE = 6;
+	public static int MINOR = 2;
+	public static short RELEASE = 3;
 	
 	public static void main(String[] args) {
 		System.out.println("nicObtain v%d.%d_%d".formatted(MAJOR, MINOR, RELEASE));
@@ -44,7 +48,14 @@ public class Program {
 			        new URL[] { jar.toURI().toURL() },
 			        Program.class.getClassLoader()
 			);
-			Class<? extends IDownloader> classToLoad = (Class<? extends IDownloader>) Class.forName("nic.ripe.Downloader", true, child);
+			
+			InputStream is = child.getResourceAsStream("META-INF/CLASS.MF");
+			Properties prop = new Properties();
+			prop.load( is );
+			System.out.printf("Detection: %b", prop.containsKey("NIC-Class"));
+			String clazz = (String) prop.get("NIC-Class");
+			System.out.println("Class located: " + clazz);
+			Class<? extends IDownloader> classToLoad = (Class<? extends IDownloader>) Class.forName(clazz, true, child);
 			downloader = (IDownloader) classToLoad.getConstructors()[0].newInstance();
 			System.out.println("%s: %d.%d.%s".formatted(downloader.name(), downloader.major(), downloader.minor(), downloader.release()));
 			downloader.attempt(state);

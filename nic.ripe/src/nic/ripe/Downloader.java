@@ -11,7 +11,6 @@ import org.apache.commons.net.ProtocolCommandEvent;
 import org.apache.commons.net.ProtocolCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.ftp.FTPSClient;
 
 import nic.api.IDownloader;
 import nic.api.IState;
@@ -46,7 +45,7 @@ public class Downloader implements IDownloader {
 	@Override
 	public void attempt(IState state) {
 		System.out.println("RIPE.NET WHOIS DATABASE");
-	    FTPSClient ftpClient = new FTPSClient();
+	    FTPClient ftpClient = new FTPClient();
 	    
 	    ftpClient.addProtocolCommandListener(new ProtocolCommandListener() {
 	        @Override
