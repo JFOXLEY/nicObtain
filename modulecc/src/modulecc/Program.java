@@ -17,6 +17,7 @@ public class Program {
 	public static void main(String[] args) {
 		System.out.println("modulecc b1");
 		try {
+			File output = new File(args[0]);
 			Manifest manifest = new Manifest();
 		    manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
 			switch(args[2]) {
@@ -29,13 +30,16 @@ public class Program {
 			default:
 				System.out.println("Warning: Non-modular class");
 			}
+			System.out.println("Output: " + output.getAbsolutePath());
 			run(args[0], args[1], manifest);
+			System.out.println("");
+			System.out.println("Successfully outputted JAR");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void run(String out, String in, Manifest manifest) throws IOException {
+	private static void run(String out, String in, Manifest manifest) throws IOException {
 	    JarOutputStream target = new JarOutputStream(new FileOutputStream(out), manifest);
 
         for (File nestedFile : new File(in).listFiles()) {
@@ -47,6 +51,7 @@ public class Program {
 
 	private static void add(File source, JarOutputStream target) throws IOException {
 	    String name = source.getPath().replace("\\", "/");
+	    System.out.println((source.isDirectory() ? "Directory" : "File") + ": " + name);
 	    if (source.isDirectory()) {
 	        if (!name.endsWith("/")) {
 	            name += "/";
