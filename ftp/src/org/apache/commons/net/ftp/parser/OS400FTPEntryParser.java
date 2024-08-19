@@ -35,13 +35,13 @@ import org.apache.commons.net.ftp.FTPFile;
  *   250 "/QSYS.LIB/RPGUNIT.LIB/RPGUNITC1.FILE" is current directory.
  * $ dir
  *   227 Entering Passive Mode (10,200,36,33,40,249).
- *   125 List started.
+ *   125 List<Object> started.
  *   QPGMR          135168 22.06.13 13:18:19 *FILE
  *   QPGMR                                   *MEM       MKCMD.MBR
  *   QPGMR                                   *MEM       RUCALLTST.MBR
  *   QPGMR                                   *MEM       RUCMDHLP.MBR
  *   QPGMR                                   *MEM       RUCRTTST.MBR
- *   250 List completed.
+ *   250 List<Object> completed.
  *
  *
  * Example *FILE entry of an OS/400 save file:
@@ -51,9 +51,9 @@ import org.apache.commons.net.ftp.FTPFile;
  *   250 "/QSYS.LIB/RPGUNIT.LIB" is current library.
  * $ dir rpgunit.file
  *   227 Entering Passive Mode (10,200,36,33,188,106).
- *   125 List started.
+ *   125 List<Object> started.
  *   QPGMR        16347136 29.06.13 15:45:09 *FILE      RPGUNIT.SAVF
- *   250 List completed.
+ *   250 List<Object> completed.
  *
  *
  * Example *STMF/*DIR FTP entries, when the
@@ -64,16 +64,16 @@ import org.apache.commons.net.ftp.FTPFile;
  *   250 "/home/raddatz" is current directory.
  * $ dir test*
  *   227 Entering Passive Mode (10,200,36,33,200,189).
- *   125 List started.
+ *   125 List<Object> started.
  *   RADDATZ           200 21.05.11 12:31:18 *STMF      TEST_RG_02_CRLF.properties
  *   RADDATZ           187 08.05.11 12:31:40 *STMF      TEST_RG_02_LF.properties
  *   RADDATZ           187 08.05.11 12:31:52 *STMF      TEST_RG_02_CR.properties
  *   RADDATZ          8192 04.07.13 09:04:14 *DIR       testDir1/
  *   RADDATZ          8192 04.07.13 09:04:17 *DIR       testDir2/
- *   250 List completed.
+ *   250 List<Object> completed.
  *
  *
- * Example 1, using ANT to list specific members of a file:
+ * Example 1, using ANT to List<Object> specific members of a file:
  * --------------------------------------------------------
  *
  *      &lt;echo/&gt;
@@ -105,7 +105,7 @@ import org.apache.commons.net.ftp.FTPFile;
  *    [ftp] 3 files listed
  *
  *
- * Example 2, using ANT to list specific members of all files of a library:
+ * Example 2, using ANT to List<Object> specific members of all files of a library:
  * ------------------------------------------------------------------------
  *
  *      &lt;echo/&gt;

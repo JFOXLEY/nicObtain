@@ -22,7 +22,7 @@ import java.util.EventListener;
 import org.apache.commons.net.util.ListenerList;
 
 /**
- * The CopyStreamAdapter will relay CopyStreamEvents to a list of listeners when either of its bytesTransferred() methods are called. Its purpose is to
+ * The CopyStreamAdapter will relay CopyStreamEvents to a List<Object> of listeners when either of its bytesTransferred() methods are called. Its purpose is to
  * facilitate the notification of the progress of a copy operation performed by one of the static copyStream() methods in org.apache.commons.io.Util to multiple
  * listeners. The static copyStream() methods invoke the bytesTransfered(long, int) of a CopyStreamListener for performance reasons and also because multiple
  * listeners cannot be registered given that the methods are static.
@@ -33,7 +33,7 @@ import org.apache.commons.net.util.ListenerList;
  * @see Util
  */
 public class CopyStreamAdapter implements CopyStreamListener {
-    private final ListenerList internalListeners;
+    private final ListenerList<Object> internalListeners;
 
     /**
      * Creates a new copyStreamAdapter.

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
@@ -15,7 +14,7 @@ public class Program {
 	public static String SPECIFIER = "NIC-Class";
 	
 	public static void main(String[] args) {
-		System.out.println("modulecc b1");
+		System.out.println("modulecc v1.0");
 		try {
 			File output = new File(args[0]);
 			Manifest manifest = new Manifest();
@@ -33,7 +32,7 @@ public class Program {
 			System.out.println("Output: " + output.getAbsolutePath());
 			run(args[0], args[1], manifest);
 			System.out.println("");
-			System.out.println("Successfully outputted JAR");
+			System.out.println("Successful output");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

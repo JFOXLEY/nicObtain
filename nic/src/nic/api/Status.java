@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Status {
 	private Date retrieval;
 	private Date modified;
-	private long size;
+	//private long size;
 	
 	public Status(Date retrieval) {
 		this.retrieval = retrieval;
@@ -20,7 +20,7 @@ public class Status {
 		UUID uuid = UUID.randomUUID();
 		this.retrieval = new Date();
 		this.modified = modified;
-		this.size = size;
+		//this.size = size;
 		return uuid.toString();
 	}
 	

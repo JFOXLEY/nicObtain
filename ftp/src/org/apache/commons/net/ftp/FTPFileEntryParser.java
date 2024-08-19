@@ -29,7 +29,7 @@ import java.util.List;
  * Here are some examples showing how to use one of the classes that implement this interface.
  * <p>
  *
- * The first example uses the {@code FTPClient.listFiles()} API to pull the whole list from the subfolder {@code subfolder} in one call, attempting to
+ * The first example uses the {@code FTPClient.listFiles()} API to pull the whole List<Object> from the subfolder {@code subfolder} in one call, attempting to
  * automatically detect the parser type. This method, without a parserKey parameter, indicates that autodection should be used.
  *
  * <pre>
@@ -39,7 +39,7 @@ import java.util.List;
  * FTPFile[] files = f.listFiles("subfolder");
  * </pre>
  *
- * The second example uses the {@code FTPClient.listFiles()} API to pull the whole list from the current working directory in one call, but specifying by
+ * The second example uses the {@code FTPClient.listFiles()} API to pull the whole List<Object> from the current working directory in one call, but specifying by
  * class name the parser to be used. For this particular parser class, this approach is necessary since there is no way to autodetect this server type.
  *
  * <pre>
@@ -77,13 +77,13 @@ public interface FTPFileEntryParser {
 
     /**
      * This method is a hook for those implementors (such as VMSVersioningFTPEntryParser, and possibly others) which need to perform some action upon the
-     * FTPFileList after it has been created from the server stream, but before any clients see the list.
+     * FTPFileList<Object> after it has been created from the server stream, but before any clients see the list.
      *
      * The default implementation can be a no-op.
      *
-     * @param original Original list after it has been created from the server stream
+     * @param original Original List<Object> after it has been created from the server stream
      *
-     * @return Original list as processed by this method.
+     * @return Original List<Object> as processed by this method.
      */
     List<String> preParse(List<String> original);
 

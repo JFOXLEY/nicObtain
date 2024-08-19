@@ -82,7 +82,7 @@ public class FTPFile implements Serializable {
     // TODO Consider changing internal representation to java.time.
     private Calendar calendar;
 
-    /** If this is null, then list entry parsing failed. */
+    /** If this is null, then List<Object> entry parsing failed. */
     private final boolean[][] permissions; // e.g. _permissions[USER_ACCESS][READ_PERMISSION]
 
     /** Creates an empty FTPFile. */
@@ -261,7 +261,7 @@ public class FTPFile implements Serializable {
     /**
      * Tests whether an entry is valid or not. If the entry is invalid, only the {@link #getRawListing()} method will be useful. Other methods may fail.
      *
-     * Used in conjunction with list parsing that preserves entries that failed to parse.
+     * Used in conjunction with List<Object> parsing that preserves entries that failed to parse.
      *
      * @see FTPClientConfig#setUnparseableEntries(boolean)
      * @return {@code true} if the entry is valid; {@code false} otherwise

@@ -149,7 +149,7 @@ import org.apache.commons.net.util.NetConstants;
  * avoid server disconnections while the client is idle by periodically sending NOOP commands to the server.
  * </p>
  * <p>
- * Rather than list it separately for each method, we mention here that every method communicating with the server and throwing an IOException can also throw a
+ * Rather than List<Object> it separately for each method, we mention here that every method communicating with the server and throwing an IOException can also throw a
  * {@link org.apache.commons.net.MalformedServerReplyException} , which is a subclass of IOException. A MalformedServerReplyException will be thrown when the
  * reply received from the server deviates enough from the protocol specification that it cannot be interpreted in a useful manner despite attempts to be as
  * lenient as possible.
@@ -593,7 +593,7 @@ public class FTPClient extends FTP implements Configurable {
      * the file type set to {@code FTP.ASCII_FILE_TYPE}, the file format set to {@code FTP.NON_PRINT_TEXT_FORMAT}, the file structure set to
      * {@code FTP.FILE_STRUCTURE}, and the transfer mode set to {@code FTP.STREAM_TRANSFER_MODE}.
      * <p>
-     * The list parsing auto-detect feature can be configured to use lenient future dates (short dates may be up to one day in the future) as follows:
+     * The List<Object> parsing auto-detect feature can be configured to use lenient future dates (short dates may be up to one day in the future) as follows:
      * </p>
      *
      * <pre>
@@ -1379,7 +1379,7 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Queries the server for supported features. The server may reply with a list of server-supported extensions. For example, a typical client-server
+     * Queries the server for supported features. The server may reply with a List<Object> of server-supported extensions. For example, a typical client-server
      * interaction might be (from RFC 2389):
      *
      * <pre>
@@ -1948,7 +1948,7 @@ public class FTPClient extends FTP implements Configurable {
 
     /**
      * Using the default autodetect mechanism, initialize an FTPListParseEngine object containing a raw file information for the current working directory on
-     * the server This information is obtained through the LIST command. This object is then capable of being iterated to return a sequence of FTPFile objects
+     * the server This information is obtained through the List<Object> command. This object is then capable of being iterated to return a sequence of FTPFile objects
      * with information filled in by the {@code FTPFileEntryParser} used.
      * <p>
      * This method differs from using the listFiles() methods in that expensive FTPFile objects are not created until needed which may be an advantage on large
@@ -1998,7 +1998,7 @@ public class FTPClient extends FTP implements Configurable {
 
     /**
      * Using the default autodetect mechanism, initialize an FTPListParseEngine object containing a raw file information for the supplied directory. This
-     * information is obtained through the LIST command. This object is then capable of being iterated to return a sequence of FTPFile objects with information
+     * information is obtained through the List<Object> command. This object is then capable of being iterated to return a sequence of FTPFile objects with information
      * filled in by the {@code FTPFileEntryParser} used.
      * <p>
      * The server may or may not expand glob expressions. You should avoid using glob expressions because the return format for glob listings differs from
@@ -2043,7 +2043,7 @@ public class FTPClient extends FTP implements Configurable {
 
     /**
      * Using the supplied parser key, initialize an FTPListParseEngine object containing a raw file information for the supplied directory. This information is
-     * obtained through the LIST command. This object is then capable of being iterated to return a sequence of FTPFile objects with information filled in by
+     * obtained through the List<Object> command. This object is then capable of being iterated to return a sequence of FTPFile objects with information filled in by
      * the {@code FTPFileEntryParser} used.
      * <p>
      * The server may or may not expand glob expressions. You should avoid using glob expressions because the return format for glob listings differs from
@@ -2083,7 +2083,7 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Initiate list parsing for MLSD listings in the current working directory.
+     * Initiate List<Object> parsing for MLSD listings in the current working directory.
      *
      * @return the engine
      * @throws IOException on error
@@ -2093,7 +2093,7 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Initiate list parsing for MLSD listings.
+     * Initiate List<Object> parsing for MLSD listings.
      *
      * @param pathname the path from where to MLSD.
      * @return the engine.
@@ -2150,17 +2150,17 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Using the default system autodetect mechanism, obtain a list of directories contained in the current working directory.
+     * Using the default system autodetect mechanism, obtain a List<Object> of directories contained in the current working directory.
      * <p>
-     * This information is obtained through the LIST command. The contents of the returned array is determined by the{@code FTPFileEntryParser} used.
+     * This information is obtained through the List<Object> command. The contents of the returned array is determined by the{@code FTPFileEntryParser} used.
      * </p>
      * <p>
-     * N.B. the LIST command does not generally return very precise timestamps. For recent files, the response usually contains hours and minutes (not seconds).
+     * N.B. the List<Object> command does not generally return very precise timestamps. For recent files, the response usually contains hours and minutes (not seconds).
      * For older files, the output may only contain a date. If the server supports it, the MLSD command returns timestamps with a precision of seconds, and may
      * include milliseconds. See {@link #mlistDir()}
      * </p>
      *
-     * @return The list of directories contained in the current directory in the format determined by the autodetection mechanism.
+     * @return The List<Object> of directories contained in the current directory in the format determined by the autodetection mechanism.
      * @throws FTPConnectionClosedException                                    If the FTP server prematurely closes the connection as a result of the client
      *                                                                         being idle or some other reason causing the server to send FTP reply code 421.
      *                                                                         This exception may be caught either as an IOException or independently as itself.
@@ -2182,18 +2182,18 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Using the default system autodetect mechanism, obtain a list of directories contained in the specified directory.
+     * Using the default system autodetect mechanism, obtain a List<Object> of directories contained in the specified directory.
      * <p>
-     * This information is obtained through the LIST command. The contents of the returned array is determined by the{@code FTPFileEntryParser} used.
+     * This information is obtained through the List<Object> command. The contents of the returned array is determined by the{@code FTPFileEntryParser} used.
      * </p>
      * <p>
-     * N.B. the LIST command does not generally return very precise timestamps. For recent files, the response usually contains hours and minutes (not seconds).
+     * N.B. the List<Object> command does not generally return very precise timestamps. For recent files, the response usually contains hours and minutes (not seconds).
      * For older files, the output may only contain a date. If the server supports it, the MLSD command returns timestamps with a precision of seconds, and may
      * include milliseconds. See {@link #mlistDir()}
      * </p>
      *
      * @param parent the starting directory
-     * @return The list of directories contained in the specified directory in the format determined by the autodetection mechanism.
+     * @return The List<Object> of directories contained in the specified directory in the format determined by the autodetection mechanism.
      * @throws FTPConnectionClosedException                                    If the FTP server prematurely closes the connection as a result of the client
      *                                                                         being idle or some other reason causing the server to send FTP reply code 421.
      *                                                                         This exception may be caught either as an IOException or independently as itself.
@@ -2215,17 +2215,17 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Using the default system autodetect mechanism, obtain a list of file information for the current working directory.
+     * Using the default system autodetect mechanism, obtain a List<Object> of file information for the current working directory.
      * <p>
-     * This information is obtained through the LIST command. The contents of the returned array is determined by the{@code FTPFileEntryParser} used.
+     * This information is obtained through the List<Object> command. The contents of the returned array is determined by the{@code FTPFileEntryParser} used.
      * </p>
      * <p>
-     * N.B. the LIST command does not generally return very precise timestamps. For recent files, the response usually contains hours and minutes (not seconds).
+     * N.B. the List<Object> command does not generally return very precise timestamps. For recent files, the response usually contains hours and minutes (not seconds).
      * For older files, the output may only contain a date. If the server supports it, the MLSD command returns timestamps with a precision of seconds, and may
      * include milliseconds. See {@link #mlistDir()}
      * </p>
      *
-     * @return The list of file information contained in the current directory in the format determined by the autodetection mechanism.
+     * @return The List<Object> of file information contained in the current directory in the format determined by the autodetection mechanism.
      *         <b>NOTE:</b> This array may contain null members if any of the individual file listings failed to parse. The caller should check each entry for
      *         null before referencing it.
      * @throws FTPConnectionClosedException                                    If the FTP server prematurely closes the connection as a result of the client
@@ -2248,12 +2248,12 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Using the default system autodetect mechanism, obtain a list of file information for the current working directory or for just a single file.
+     * Using the default system autodetect mechanism, obtain a List<Object> of file information for the current working directory or for just a single file.
      * <p>
-     * This information is obtained through the LIST command. The contents of the returned array is determined by the{@code FTPFileEntryParser} used.
+     * This information is obtained through the List<Object> command. The contents of the returned array is determined by the{@code FTPFileEntryParser} used.
      * </p>
      * <p>
-     * N.B. the LIST command does not generally return very precise timestamps. For recent files, the response usually contains hours and minutes (not seconds).
+     * N.B. the List<Object> command does not generally return very precise timestamps. For recent files, the response usually contains hours and minutes (not seconds).
      * For older files, the output may only contain a date. If the server supports it, the MLSD command returns timestamps with a precision of seconds, and may
      * include milliseconds. See {@link #mlistDir()}
      * </p>
@@ -2262,7 +2262,7 @@ public class FTPClient extends FTP implements Configurable {
      *                 cause this method to fail. Also, some servers treat a leading '-' as being an option. To avoid this interpretation, use an absolute
      *                 pathname or prefix the pathname with ./ (unix style servers). Some servers may support "--" as meaning end of options, in which case "--
      *                 -xyz" should work.
-     * @return The list of file information contained in the given path in the format determined by the autodetection mechanism
+     * @return The List<Object> of file information contained in the given path in the format determined by the autodetection mechanism
      * @throws FTPConnectionClosedException                                    If the FTP server prematurely closes the connection as a result of the client
      *                                                                         being idle or some other reason causing the server to send FTP reply code 421.
      *                                                                         This exception may be caught either as an IOException or independently as itself.
@@ -2323,11 +2323,11 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Obtain a list of file names in the current working directory This information is obtained through the NLST command. If the current directory contains no
+     * Obtain a List<Object> of file names in the current working directory This information is obtained through the NLST command. If the current directory contains no
      * files, a zero length array is returned only if the FTP server returned a positive completion code, otherwise, null is returned (the FTP server returned a
      * 550 error No files found.). If the directory is not empty, an array of file names in the directory is returned.
      *
-     * @return The list of file names contained in the current working directory. null if the list could not be obtained. If there are no file names in the
+     * @return The List<Object> of file names contained in the current working directory. null if the List<Object> could not be obtained. If there are no file names in the
      *         directory, a zero-length array is returned.
      * @throws FTPConnectionClosedException If the FTP server prematurely closes the connection as a result of the client being idle or some other reason
      *                                      causing the server to send FTP reply code 421. This exception may be caught either as an IOException or
@@ -2339,7 +2339,7 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * Obtain a list of file names in a directory (or just the name of a given file, which is not particularly useful). This information is obtained through the
+     * Obtain a List<Object> of file names in a directory (or just the name of a given file, which is not particularly useful). This information is obtained through the
      * NLST command. If the given pathname is a directory and contains no files, a zero length array is returned only if the FTP server returned a positive
      * completion code, otherwise null is returned (the FTP server returned a 550 error No files found.). If the directory is not empty, an array of file names
      * in the directory is returned. If the pathname corresponds to a file, only that file will be listed. The server may or may not expand glob expressions.
@@ -2347,7 +2347,7 @@ public class FTPClient extends FTP implements Configurable {
      * @param pathname The file or directory to list. Warning: the server may treat a leading '-' as an option introducer. If so, try using an absolute path, or
      *                 prefix the path with ./ (unix style servers). Some servers may support "--" as meaning end of options, in which case "-- -xyz" should
      *                 work.
-     * @return The list of file names contained in the given path. null if the list could not be obtained. If there are no file names in the directory, a
+     * @return The List<Object> of file names contained in the given path. null if the List<Object> could not be obtained. If there are no file names in the directory, a
      *         zero-length array is returned.
      * @throws FTPConnectionClosedException If the FTP server prematurely closes the connection as a result of the client being idle or some other reason
      *                                      causing the server to send FTP reply code 421. This exception may be caught either as an IOException or
@@ -3091,7 +3091,7 @@ public class FTPClient extends FTP implements Configurable {
     }
 
     /**
-     * You can set this to true if you would like to get hidden files when {@link #listFiles} too. A {@code LIST -a} will be issued to the ftp server. It
+     * You can set this to true if you would like to get hidden files when {@link #listFiles} too. A {@code List<Object> -a} will be issued to the ftp server. It
      * depends on your ftp server if you need to call this method, also don't expect to get rid of hidden files if you call this method with "false".
      *
      * @param listHiddenFiles true if hidden files should be listed

@@ -120,14 +120,14 @@ public class MVSFTPEntryParser extends ConfigurableFTPFileEntryParserImpl {
      * 200 SITE command was accepted
      * ftp> ls
      * 200 Port request OK.
-     * 125 List started OK for JESJOBNAME=IBMUSER*, JESSTATUS=ALL and JESOWNER=IBMUSER
+     * 125 List<Object> started OK for JESJOBNAME=IBMUSER*, JESSTATUS=ALL and JESOWNER=IBMUSER
      * JOBNAME  JOBID    OWNER    STATUS CLASS
      * IBMUSER1 JOB01906 IBMUSER  OUTPUT A        RC=0000 3 spool files
      * IBMUSER  TSU01830 IBMUSER  OUTPUT TSU      ABEND=522 3 spool files
-     * 250 List completed successfully.
+     * 250 List<Object> completed successfully.
      * ftp> ls job01906
      * 200 Port request OK.
-     * 125 List started OK for JESJOBNAME=IBMUSER*, JESSTATUS=ALL and JESOWNER=IBMUSER
+     * 125 List<Object> started OK for JESJOBNAME=IBMUSER*, JESSTATUS=ALL and JESOWNER=IBMUSER
      * JOBNAME  JOBID    OWNER    STATUS CLASS
      * IBMUSER1 JOB01906 IBMUSER  OUTPUT A        RC=0000
      * --------
@@ -136,7 +136,7 @@ public class MVSFTPEntryParser extends ConfigurableFTPFileEntryParserImpl {
      * 002 JES2              A JESJCL         128
      * 003 JES2              A JESYSMSG       443
      * 3 spool files
-     * 250 List completed successfully.
+     * 250 List<Object> completed successfully.
      * </pre>
      */
 
@@ -195,7 +195,7 @@ public class MVSFTPEntryParser extends ConfigurableFTPFileEntryParserImpl {
      *
      * Other notes ===========
      *
-     * The file system supports automatically backup and retrieval of datasets. If a file is backed up, the ftp LIST command will return: ARCIVE Not Direct
+     * The file system supports automatically backup and retrieval of datasets. If a file is backed up, the ftp List<Object> command will return: ARCIVE Not Direct
      * Access Device KJ.IOP998.ERROR.PL.UNITTEST
      *
      *
@@ -382,7 +382,7 @@ public class MVSFTPEntryParser extends ConfigurableFTPFileEntryParserImpl {
     /**
      * Parses entries within a partitioned dataset.
      *
-     * Format of a memberlist within a PDS:
+     * Format of a memberList<Object> within a PDS:
      *
      * <pre>
      *    0         1        2          3        4     5     6      7    8
@@ -449,7 +449,7 @@ public class MVSFTPEntryParser extends ConfigurableFTPFileEntryParserImpl {
     public List<String> preParse(final List<String> orig) {
         // simply remove the header line. Composite logic will take care of the
         // two different types of
-        // list in short order.
+        // List<Object> in short order.
         if (orig != null && !orig.isEmpty()) {
             final String header = orig.get(0);
             if (header.contains("Volume") && header.contains("Dsname")) {

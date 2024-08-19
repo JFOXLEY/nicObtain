@@ -9,6 +9,7 @@ import java.util.Date;
 import org.apache.commons.io.stream.CountingOutputStream;
 import org.apache.commons.net.ProtocolCommandEvent;
 import org.apache.commons.net.ProtocolCommandListener;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
@@ -16,11 +17,13 @@ import nic.api.IDownloader;
 import nic.api.IState;
 
 public class Downloader implements IDownloader {
-	public static String SERVER = "ftp.ripe.org";
+	public static String SERVER = "ftp.ripe.net";
+	public static int PORT = 21;
 	public static String USERNAME = "anonymous";
-	public static String PASSWORD = "anonymous";
-	public static String PATH = "/ripe/dbase/";
-	public static String TARGET = "ripe.db.gz";
+	public static String PASSWORD = "";
+	public static String PATH = "/ripe/dbase/split/";
+	public static String TARGETV4 = "ripe.db.inetnum.gz";
+	public static String TARGETV6 = "ripe.db.inet6num.gz";
 
 	@Override
 	public String name() {
@@ -39,7 +42,7 @@ public class Downloader implements IDownloader {
 	
 	@Override
 	public short release() {
-		return 1;
+		return 2;
 	}
 
 	@Override
@@ -60,12 +63,11 @@ public class Downloader implements IDownloader {
 	          System.out.printf("[%s][%d] Reply received : %s", Thread.currentThread().getName(),
 	              System.currentTimeMillis(), protocolCommandEvent.getMessage());
 	        }
-	        
-	      });
+	    });
 
 	    
 	    try {
-			ftpClient.connect("ftp.ripe.net", 21);
+			ftpClient.connect(SERVER, PORT);
 			System.out.println("Connected to RIPE");
 		} catch (SocketException e) {
 			e.printStackTrace();
@@ -85,6 +87,7 @@ public class Downloader implements IDownloader {
 	    	System.out.println("Attempting to retrieve stat: MLIST");
 	    	FTPFile stat = ftpClient.mlistFile(db);
 	    	ftpClient.enterLocalPassiveMode();
+	    	ftpClient.type(FTP.BINARY_FILE_TYPE);
 	    	long lRetrieval = System.currentTimeMillis();
 	    	Date retrieval = new Date(lRetrieval);
 	    	String name = stat.getName();
@@ -95,8 +98,8 @@ public class Downloader implements IDownloader {
 			    System.out.printf("[%s] Downloading %s - %s - %d%n", retrieval.toString(), name, modified.toString(), size);
 				
 			    File destination = state.write(modified, size);
-			    FileOutputStream out = new FileOutputStream(destination);
-			    CountingOutputStream cos = new CountingOutputStream(out) {
+			    FileOutputStream cos = new FileOutputStream(destination);
+			    /*CountingOutputStream cos = new CountingOutputStream(out) {
 			    	private long cosRetrieval = 0L;
 			        protected void beforeWrite(int n) {
 			            super.beforeWrite(n);
@@ -109,11 +112,11 @@ public class Downloader implements IDownloader {
 			            	cosRetrieval = current;
 			            	long count = getCount();
 			            	float percent = (float)count / (float)size;
-			            	double percentage = (double) (Math.round(percent * 100.0) / 100.0);
+			            	double percentage = (double) (Math.round(percent * 100.0));
 				            System.out.println("[" + new Date(current).toString() + "] Downloaded " + getCount() + "/" + size + " (" + percentage + "%)");
 			            }
 			        }
-			    };
+			    };*/
 			    
 		        System.out.println("RETFILE");
 		        
@@ -121,8 +124,8 @@ public class Downloader implements IDownloader {
 			   
 			    System.out.println("BP : " + (in ? "YES" : "NO"));
 			    
-			    out.flush();
-			    out.close();
+			    //out.flush();
+			    cos.close();
 			    
 			    if (in) {
 			    	File file = state.write(modified, size);

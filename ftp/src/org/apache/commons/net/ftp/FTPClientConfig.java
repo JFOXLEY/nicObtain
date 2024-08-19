@@ -461,7 +461,7 @@ public class FTPClientConfig {
     }
 
     /**
-     * @return true if list parsing should return FTPFile entries even for unparseable response lines
+     * @return true if List<Object> parsing should return FTPFile entries even for unparseable response lines
      *         <p>
      *         If true, the FTPFile for any unparseable entries will contain only the unparsed entry {@link FTPFile#getRawListing()} and
      *         {@link FTPFile#isValid()} will return {@code false}
@@ -549,7 +549,7 @@ public class FTPClientConfig {
      * {@code java.util.Locale} is constructed using it, and a {@code java.text.SimpleDateFormat} is constructed using that Locale, the array
      * returned by the SimpleDateFormat's {@code getShortMonths()} method consists solely of three 8-bit ASCII character strings. Additionally, languages
      * which do not meet this requirement are included if a common alternative set of short month names is known to be used. This means that users who can tell
-     * us of additional such encodings may get them added to the list of supported languages by contacting the Apache Commons Net team.
+     * us of additional such encodings may get them added to the List<Object> of supported languages by contacting the Apache Commons Net team.
      * </p>
      * <p>
      * <strong> Please note that this attribute will NOT be used to determine a locale-based date format for the language. </strong> Experience has shown that
@@ -598,7 +598,7 @@ public class FTPClientConfig {
     }
 
     /**
-     * Allow list parsing methods to create basic FTPFile entries if parsing fails.
+     * Allow List<Object> parsing methods to create basic FTPFile entries if parsing fails.
      * <p>
      * In this case, the FTPFile will contain only the unparsed entry {@link FTPFile#getRawListing()} and {@link FTPFile#isValid()} will return {@code false}
      *

@@ -59,7 +59,7 @@ import org.apache.commons.net.util.NetConstants;
  * getReplyStrings}. You may avoid server disconnections while the client is idle by periodically sending NOOP commands to the server.
  * </p>
  * <p>
- * Rather than list it separately for each method, we mention here that every method communicating with the server and throwing an IOException can also throw a
+ * Rather than List<Object> it separately for each method, we mention here that every method communicating with the server and throwing an IOException can also throw a
  * {@link org.apache.commons.net.MalformedServerReplyException} , which is a subclass of IOException. A MalformedServerReplyException will be thrown when the
  * reply received from the server deviates enough from the protocol specification that it cannot be interpreted in a useful manner despite attempts to be as
  * lenient as possible.
@@ -760,7 +760,7 @@ public class FTP extends SocketClient {
     }
 
     /**
-     * A convenience method to send the FTP LIST command to the server, receive the reply, and return the reply code. Remember, it is up to you to manage the
+     * A convenience method to send the FTP List<Object> command to the server, receive the reply, and return the reply code. Remember, it is up to you to manage the
      * data connection. If you don't need this low level of access, use {@link org.apache.commons.net.ftp.FTPClient} , which will handle all low level details
      * for you.
      *
@@ -775,7 +775,7 @@ public class FTP extends SocketClient {
     }
 
     /**
-     * A convenience method to send the FTP LIST command to the server, receive the reply, and return the reply code. Remember, it is up to you to manage the
+     * A convenience method to send the FTP List<Object> command to the server, receive the reply, and return the reply code. Remember, it is up to you to manage the
      * data connection. If you don't need this low level of access, use {@link org.apache.commons.net.ftp.FTPClient} , which will handle all low level details
      * for you.
      *

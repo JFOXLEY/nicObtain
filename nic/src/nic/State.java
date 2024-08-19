@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -64,7 +65,7 @@ public class State implements IState {
 		
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(this.state), encoding));
-			this.cache = (JSONObject) JSONValue.parse(reader);
+			this.cache = JSONValue.parseObject(reader);
 			reader.close();
 			
 			if (this.cache == null) {
@@ -75,7 +76,7 @@ public class State implements IState {
 			if (last == null || (last instanceof Long && last == (Long)0L) || (last instanceof String && last.equals("")) || last instanceof Boolean) {
 				return new nic.api.Status(new Date(0));
 			}
-			JSONObject entry = (JSONObject) this.cache.get(last);
+			JSONObject entry = (JSONObject) this.cache.getObject(last);
 			Date retrieval = new Date((Long) entry.get("retrieval"));
 			return new nic.api.Status(retrieval);
 		} catch (IOException ioE) {
@@ -92,7 +93,7 @@ public class State implements IState {
 		
 		if (status == null) {
 			this.cache = new JSONObject();
-			this.cache.put("last", 0L);
+			this.cache.put("last", new JSONArray());
 		} else {
 			if ((uuid = this.status.save(modified, size)) != null) {
 				JSONObject entry = new JSONObject();

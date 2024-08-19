@@ -25,7 +25,7 @@ import java.util.EventListener;
 import org.apache.commons.net.util.ListenerList;
 
 /**
- * ProtocolCommandSupport is a convenience class for managing a list of ProtocolCommandListeners and firing ProtocolCommandEvents. You can simply delegate
+ * ProtocolCommandSupport is a convenience class for managing a List<Object> of ProtocolCommandListeners and firing ProtocolCommandEvents. You can simply delegate
  * ProtocolCommandEvent firing and listener registering/unregistering tasks to this class.
  *
  *
@@ -37,7 +37,7 @@ public class ProtocolCommandSupport implements Serializable {
     private static final long serialVersionUID = -8017692739988399978L;
 
     private final Object source;
-    private final ListenerList listeners;
+    private final ListenerList<Object> listeners;
 
     /**
      * Creates a ProtocolCommandSupport instance using the indicated source as the source of ProtocolCommandEvents.

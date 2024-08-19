@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Iterator;
 import java.util.Properties;
 
 import nic.api.IDownloader;
@@ -52,7 +50,7 @@ public class Program {
 			InputStream is = child.getResourceAsStream("META-INF/CLASS.MF");
 			Properties prop = new Properties();
 			prop.load( is );
-			System.out.printf("Detection: %b", prop.containsKey("NIC-Class"));
+			System.out.printf("Detection: %b\r\n", prop.containsKey("NIC-Class"));
 			String clazz = (String) prop.get("NIC-Class");
 			System.out.println("Class located: " + clazz);
 			Class<? extends IDownloader> classToLoad = (Class<? extends IDownloader>) Class.forName(clazz, true, child);

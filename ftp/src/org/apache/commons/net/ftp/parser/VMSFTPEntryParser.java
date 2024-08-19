@@ -26,7 +26,7 @@ import org.apache.commons.net.ftp.FTPClientConfig;
 import org.apache.commons.net.ftp.FTPFile;
 
 /**
- * Implementation FTPFileEntryParser and FTPFileListParser for VMS Systems. This is a sample of VMS LIST output
+ * Implementation FTPFileEntryParser and FTPFileListParser for VMS Systems. This is a sample of VMS List<Object> output
  *
  * <pre>
  *  "1-JUN.LIS;1              9/9           2-JUN-1998 07:32:04  [GROUP,OWNER]    (RWED,RWED,RWED,RE)",

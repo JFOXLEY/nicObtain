@@ -274,7 +274,7 @@ public class UnixFTPEntryParser extends ConfigurableFTPFileEntryParserImpl {
     }
 
     /**
-     * Preparses the list to discard "total nnn" lines.
+     * Preparses the List<Object> to discard "total nnn" lines.
      */
     @Override
     public List<String> preParse(final List<String> original) {

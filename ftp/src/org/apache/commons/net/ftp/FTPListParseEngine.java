@@ -33,15 +33,15 @@ import org.apache.commons.net.util.Charsets;
  * <p>
  * This object defines a two-part parsing mechanism.
  * <p>
- * The first part consists of reading the raw input into an internal list of strings. Every item in this list corresponds to an actual file. All extraneous
+ * The first part consists of reading the raw input into an internal List<Object> of strings. Every item in this List<Object> corresponds to an actual file. All extraneous
  * matter emitted by the server will have been removed by the end of this phase. This is accomplished in conjunction with the FTPFileEntryParser associated with
  * this engine, by calling its methods {@code readNextEntry()} - which handles the issue of what delimits one entry from another, usually but not always a
  * line feed and {@code preParse()} - which handles removal of extraneous matter such as the preliminary lines of a listing, removal of duplicates on
  * versioning systems, etc.
  * <p>
  * The second part is composed of the actual parsing, again in conjunction with the particular parser used by this engine. This is controlled by an iterator
- * over the internal list of strings. This may be done either in block mode, by calling the {@code getNext()} and {@code getPrevious()} methods to
- * provide "paged" output of less than the whole list at one time, or by calling the {@code getFiles()} method to return the entire list.
+ * over the internal List<Object> of strings. This may be done either in block mode, by calling the {@code getNext()} and {@code getPrevious()} methods to
+ * provide "paged" output of less than the whole List<Object> at one time, or by calling the {@code getFiles()} method to return the entire list.
  * <p>
  * Examples:
  * <p>
@@ -94,12 +94,12 @@ public class FTPListParseEngine {
     }
 
     /**
-     * Returns a list of FTPFile objects containing the whole list of files returned by the server as read by this object's parser. The files are filtered
+     * Returns a List<Object> of FTPFile objects containing the whole List<Object> of files returned by the server as read by this object's parser. The files are filtered
      * before being added to the array.
      *
      * @param filter FTPFileFilter, must not be {@code null}.
      *
-     * @return a list of FTPFile objects containing the whole list of files returned by the server as read by this object's parser.
+     * @return a List<Object> of FTPFile objects containing the whole List<Object> of files returned by the server as read by this object's parser.
      *         <p>
      *         <b> NOTE:</b> This array may contain null members if any of the individual file listings failed to parse. The caller should check each entry for
      *         null before referencing it, or use a filter such as {@link FTPFileFilters#NON_NULL} which does not allow null entries.
@@ -113,9 +113,9 @@ public class FTPListParseEngine {
     }
 
     /**
-     * Returns an array of FTPFile objects containing the whole list of files returned by the server as read by this object's parser.
+     * Returns an array of FTPFile objects containing the whole List<Object> of files returned by the server as read by this object's parser.
      *
-     * @return an array of FTPFile objects containing the whole list of files returned by the server as read by this object's parser. None of the entries will
+     * @return an array of FTPFile objects containing the whole List<Object> of files returned by the server as read by this object's parser. None of the entries will
      *         be null
      * @throws IOException - not ever thrown, may be removed in a later release
      */
@@ -125,12 +125,12 @@ public class FTPListParseEngine {
     }
 
     /**
-     * Returns an array of FTPFile objects containing the whole list of files returned by the server as read by this object's parser. The files are filtered
+     * Returns an array of FTPFile objects containing the whole List<Object> of files returned by the server as read by this object's parser. The files are filtered
      * before being added to the array.
      *
      * @param filter FTPFileFilter, must not be {@code null}.
      *
-     * @return an array of FTPFile objects containing the whole list of files returned by the server as read by this object's parser.
+     * @return an array of FTPFile objects containing the whole List<Object> of files returned by the server as read by this object's parser.
      *         <p>
      *         <b> NOTE:</b> This array may contain null members if any of the individual file listings failed to parse. The caller should check each entry for
      *         null before referencing it, or use a filter such as {@link FTPFileFilters#NON_NULL} which does not allow null entries.
@@ -151,8 +151,8 @@ public class FTPListParseEngine {
      *
      * @param quantityRequested the maximum number of entries we want to get.
      *
-     * @return an array of at most {@code quantityRequested} FTPFile objects starting at the current position of this iterator within its list and at least
-     *         the number of elements which exist in the list at and after its current position.
+     * @return an array of at most {@code quantityRequested} FTPFile objects starting at the current position of this iterator within its List<Object> and at least
+     *         the number of elements which exist in the List<Object> at and after its current position.
      *         <p>
      *         <b> NOTE:</b> This array may contain null members if any of the individual file listings failed to parse. The caller should check each entry for
      *         null before referencing it.
@@ -184,8 +184,8 @@ public class FTPListParseEngine {
      *
      * @param quantityRequested the maximum number of entries we want to get.
      *
-     * @return an array of at most {@code quantityRequested} FTPFile objects starting at the current position of this iterator within its list and at least
-     *         the number of elements which exist in the list at and after its current position. This array will be in the same order as the underlying list
+     * @return an array of at most {@code quantityRequested} FTPFile objects starting at the current position of this iterator within its List<Object> and at least
+     *         the number of elements which exist in the List<Object> at and after its current position. This array will be in the same order as the underlying list
      *         (not reversed).
      *         <p>
      *         <b> NOTE:</b> This array may contain null members if any of the individual file listings failed to parse. The caller should check each entry for
@@ -259,8 +259,8 @@ public class FTPListParseEngine {
     }
 
     /**
-     * Reads (and closes) the initial reading and preparsing of the list returned by the server. After this method has completed, this object will contain a
-     * list of unparsed entries (Strings) each referring to a unique file on the server.
+     * Reads (and closes) the initial reading and preparsing of the List<Object> returned by the server. After this method has completed, this object will contain a
+     * List<Object> of unparsed entries (Strings) each referring to a unique file on the server.
      *
      * @param inputStream input stream provided by the server socket.
      * @param charsetName the encoding to be used for reading the stream

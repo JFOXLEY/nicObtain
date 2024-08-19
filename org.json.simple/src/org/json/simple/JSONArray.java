@@ -10,32 +10,35 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.simple.generics.ListHolder;
+
 
 /**
- * A JSON array. JSONObject supports java.util.List interface.
+ * A JSON array. JSONObject supports java.util.List<Object> interface.
  * 
  * @author FangYidong<fangyidong@yahoo.com.cn>
  */
-public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamAware {
+public class JSONArray extends ArrayList<Object> implements List<Object>, JSONAware, JSONStreamAware {
 	private static final long serialVersionUID = 3957988303675231981L;
 
     /**
-     * Encode a list into JSON text and write it to out. 
-     * If this list is also a JSONStreamAware or a JSONAware, JSONStreamAware and JSONAware specific behaviours will be ignored at this top level.
+     * Encode a List<Object> into JSON text and write it to out. 
+     * If this List<Object> is also a JSONStreamAware or a JSONAware, JSONStreamAware and JSONAware specific behaviours will be ignored at this top level.
      * 
      * @see org.json.simple.JSONValue#writeJSONString(Object, Writer)
      * 
      * @param list
      * @param out
      */
-	public static void writeJSONString(List list, Writer out) throws IOException{
+	public static void writeJSONString(ListHolder listHolder, Writer out) throws IOException{
+		List<Object> list = listHolder.list();
 		if(list == null){
 			out.write("null");
 			return;
 		}
 		
 		boolean first = true;
-		Iterator iter=list.iterator();
+		Iterator<Object> iter=list.iterator();
 		
         out.write('[');
 		while(iter.hasNext()){
@@ -56,25 +59,26 @@ public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamA
 	}
 	
 	public void writeJSONString(Writer out) throws IOException{
-		writeJSONString(this, out);
+		writeJSONString(new ListHolder(this), out);
 	}
 	
 	/**
-	 * Convert a list to JSON text. The result is a JSON array. 
-	 * If this list is also a JSONAware, JSONAware specific behaviours will be omitted at this top level.
+	 * Convert a List<Object> to JSON text. The result is a JSON array. 
+	 * If this List<Object> is also a JSONAware, JSONAware specific behaviours will be omitted at this top level.
 	 * 
 	 * @see org.json.simple.JSONValue#toJSONString(Object)
 	 * 
 	 * @param list
-	 * @return JSON text, or "null" if list is null.
+	 * @return JSON text, or "null" if List<Object> is null.
 	 */
-	public static String toJSONString(List list){
+	public static String toJSONString(ListHolder listHolder){
+		List<Object> list = listHolder.list();
 		if(list == null)
 			return "null";
 		
         boolean first = true;
         StringBuffer sb = new StringBuffer();
-		Iterator iter=list.iterator();
+		Iterator<Object> iter=list.iterator();
         
         sb.append('[');
 		while(iter.hasNext()){
@@ -95,7 +99,7 @@ public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamA
 	}
 
 	public String toJSONString(){
-		return toJSONString(this);
+		return toJSONString(new ListHolder(this));
 	}
 	
 	public String toString() {

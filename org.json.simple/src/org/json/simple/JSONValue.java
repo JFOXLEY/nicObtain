@@ -11,6 +11,8 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.generics.ListHolder;
+import org.json.simple.generics.MapHolder;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -40,6 +42,16 @@ public class JSONValue {
 		try{
 			JSONParser parser=new JSONParser();
 			return parser.parse(in);
+		}
+		catch(Exception e){
+			return null;
+		}
+	}
+	
+	public static JSONObject parseObject(Reader in){
+		try{
+			JSONParser parser=new JSONParser();
+			return ((JSONObject) ((MapHolder) parser.parse(in)).map());
 		}
 		catch(Exception e){
 			return null;
@@ -141,13 +153,13 @@ public class JSONValue {
 			return;
 		}
 		
-		if(value instanceof Map){
-			JSONObject.writeJSONString((Map)value, out);
+		if(value instanceof MapHolder){
+			JSONObject.writeJSONString((MapHolder)value, out);
 			return;
 		}
 		
-		if(value instanceof List){
-			JSONArray.writeJSONString((List)value, out);
+		if(value instanceof ListHolder){
+			JSONArray.writeJSONString((ListHolder)value, out);
             return;
 		}
 		
@@ -159,11 +171,11 @@ public class JSONValue {
 	 * <p>
 	 * If this object is a Map or a List, and it's also a JSONAware, JSONAware will be considered firstly.
 	 * <p>
-	 * DO NOT call this method from toJSONString() of a class that implements both JSONAware and Map or List with 
-	 * "this" as the parameter, use JSONObject.toJSONString(Map) or JSONArray.toJSONString(List) instead. 
+	 * DO NOT call this method from toJSONString() of a class that implements both JSONAware and Map or List<Object> with 
+	 * "this" as the parameter, use JSONObject.toJSONString(Map) or JSONArray.toJSONString(List<Object>) instead. 
 	 * 
 	 * @see org.json.simple.JSONObject#toJSONString(Map)
-	 * @see org.json.simple.JSONArray#toJSONString(List)
+	 * @see org.json.simple.JSONArray#toJSONString(List<Object>)
 	 * 
 	 * @param value
 	 * @return JSON text, or "null" if value is null or it's an NaN or an INF number.
@@ -198,11 +210,11 @@ public class JSONValue {
 		if((value instanceof JSONAware))
 			return ((JSONAware)value).toJSONString();
 		
-		if(value instanceof Map)
-			return JSONObject.toJSONString((Map)value);
+		if(value instanceof MapHolder)
+			return JSONObject.toJSONString((MapHolder) value);
 		
-		if(value instanceof List)
-			return JSONArray.toJSONString((List)value);
+		if(value instanceof ListHolder)
+			return JSONArray.toJSONString((ListHolder)value);
 		
 		return value.toString();
 	}

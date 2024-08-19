@@ -30,7 +30,7 @@ import org.apache.commons.net.ftp.FTPClientConfig;
  * Special implementation VMSFTPEntryParser with versioning turned on. This parser removes all duplicates and only leaves the version with the highest version
  * number for each file name.
  * <p>
- * This is a sample of VMS LIST output
+ * This is a sample of VMS List<Object> output
  * </p>
  *
  * <pre>
@@ -85,7 +85,7 @@ public class VMSVersioningFTPEntryParser extends VMSFTPEntryParser {
      *
      * @param original Original list
      *
-     * @return Original list purged of duplicates
+     * @return Original List<Object> purged of duplicates
      */
     @Override
     public List<String> preParse(final List<String> original) {

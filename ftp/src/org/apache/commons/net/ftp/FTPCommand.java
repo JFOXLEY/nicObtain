@@ -168,14 +168,14 @@ public final class FTPCommand {
     public static final int EPRT = 37;
 
     /**
-     * Machine parseable list for a directory.
+     * Machine parseable List<Object> for a directory.
      *
      * @since 3.0
      */
     public static final int MLSD = 38;
 
     /**
-     * Machine parseable list for a single file.
+     * Machine parseable List<Object> for a single file.
      *
      * @since 3.0
      */
@@ -262,7 +262,7 @@ public final class FTPCommand {
     /** Alias for {@value}. */
     public static final int PRINT_WORKING_DIRECTORY = PWD;
 
-    // public static final int LIST = LIST;
+    // public static final int List<Object> = LIST;
 
     /** Alias for {@value}. */
     public static final int NAME_LIST = NLST;

@@ -34,11 +34,11 @@ public abstract class FTPFileEntryParserImpl implements FTPFileEntryParser {
 
     /**
      * This method is a hook for those implementors (such as VMSVersioningFTPEntryParser, and possibly others) which need to perform some action upon the
-     * FTPFileList after it has been created from the server stream, but before any clients see the list.
+     * FTPFileList<Object> after it has been created from the server stream, but before any clients see the list.
      *
      * This default implementation does nothing.
      *
-     * @param original Original list after it has been created from the server stream
+     * @param original Original List<Object> after it has been created from the server stream
      *
      * @return {@code original} unmodified.
      */

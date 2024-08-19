@@ -10,12 +10,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.json.simple.generics.MapHolder;
+
 /**
  * A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
  * 
  * @author FangYidong<fangyidong@yahoo.com.cn>
  */
-public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAware{
+public class JSONObject extends HashMap<Object, Object> implements Map<Object, Object>, JSONAware, JSONStreamAware{
 	private static final long serialVersionUID = -503443796854799292L;
 
 	
@@ -25,6 +27,13 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 		if(res==null)
 			return false;
 		return res;
+	}
+	
+	public JSONObject getObject(Object key) {
+		Object res =  super.get(key);
+		if(res==null)
+			return null;
+		return (JSONObject) ((MapHolder)res).map();
 	}
 
 	/**
@@ -36,14 +45,15 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
      * @param map
      * @param out
      */
-	public static void writeJSONString(Map map, Writer out) throws IOException {
+	public static void writeJSONString(MapHolder mapHolder, Writer out) throws IOException {
+		Map<Object, Object> map = mapHolder.map();
 		if(map == null){
 			out.write("null");
 			return;
 		}
 		
 		boolean first = true;
-		Iterator iter=map.entrySet().iterator();
+		Iterator<Entry<Object, Object>> iter=map.entrySet().iterator();
 		
         out.write('{');
 		while(iter.hasNext()){
@@ -51,7 +61,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
                 first = false;
             else
                 out.write(',');
-			Map.Entry entry=(Map.Entry)iter.next();
+			Map.Entry<Object, Object> entry=(Map.Entry<Object, Object>)iter.next();
             out.write('\"');
             out.write(escape(String.valueOf(entry.getKey())));
             out.write('\"');
@@ -62,7 +72,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 	}
 
 	public void writeJSONString(Writer out) throws IOException{
-		writeJSONString(this, out);
+		writeJSONString(new MapHolder(this), out);
 	}
 	
 	/**
@@ -74,13 +84,14 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 	 * @param map
 	 * @return JSON text, or "null" if map is null.
 	 */
-	public static String toJSONString(Map map){
+	public static String toJSONString(MapHolder mapHolder){
+		Map<Object, Object> map = mapHolder.map();
 		if(map == null)
 			return "null";
 		
         StringBuffer sb = new StringBuffer();
         boolean first = true;
-		Iterator iter=map.entrySet().iterator();
+		Iterator<Entry<Object, Object>> iter=map.entrySet().iterator();
 		
         sb.append('{');
 		while(iter.hasNext()){
@@ -89,7 +100,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
             else
                 sb.append(',');
             
-			Map.Entry entry=(Map.Entry)iter.next();
+			Map.Entry<Object, Object> entry=(Map.Entry<Object, Object>)iter.next();
 			toJSONString(String.valueOf(entry.getKey()),entry.getValue(), sb);
 		}
         sb.append('}');
@@ -97,7 +108,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 	}
 	
 	public String toJSONString(){
-		return toJSONString(this);
+		return toJSONString(new MapHolder(this));
 	}
 	
 	private static String toJSONString(String key,Object value, StringBuffer sb){
