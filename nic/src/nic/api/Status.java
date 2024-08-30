@@ -1,34 +1,37 @@
 package nic.api;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class Status {
-	private Date retrieval;
-	private Date modified;
+	//private Date retrieval;
+	//private Date modified;
 	//private long size;
+	private List<Log> logs;
+	private Date initialised;
+	private UUID uuid;
 	
-	public Status(Date retrieval) {
-		this.retrieval = retrieval;
+	public Status(Date initialised) {
+		this.initialised = initialised;
+		this.uuid = UUID.randomUUID();
 	}
 	
-	public boolean check(Date modified) {
-		return modified != null && retrieval.before(modified);
+	public boolean check(String path, String modified) {
+		for (Log log : logs) {
+			if (log.path().equalsIgnoreCase(path)) {
+				return modified.equals(log.modified());
+			}
+		}
+		
+		return false;
 	}
 	
-	public String save(Date modified, long size) {
-		UUID uuid = UUID.randomUUID();
-		this.retrieval = new Date();
-		this.modified = modified;
-		//this.size = size;
-		return uuid.toString();
+	public boolean add(Log log) {
+		return logs.add(log);
 	}
 	
-	public Date retrieval() {
-		return retrieval;
-	}
-	
-	public Date modified() {
-		return modified;
+	public UUID uuid() {
+		return this.uuid;
 	}
 }

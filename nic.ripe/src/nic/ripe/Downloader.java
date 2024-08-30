@@ -82,7 +82,7 @@ public class Downloader implements IDownloader {
 			e.printStackTrace();
 		}
 	    
-	    String db = PATH.concat(TARGET);
+	    String db = PATH.concat(TARGETV4);
 	    try {
 	    	System.out.println("Attempting to retrieve stat: MLIST");
 	    	FTPFile stat = ftpClient.mlistFile(db);

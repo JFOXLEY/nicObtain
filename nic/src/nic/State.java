@@ -8,12 +8,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.generics.MapHolder;
 
 import nic.api.IState;
+import nic.api.Log;
 import nic.api.Status;
 import nic.api.defence.TrackCorruptException;
 import nic.api.defence.TrackNotFoundException;
@@ -42,8 +45,8 @@ public class State implements IState {
 			
 			try {
 				this.state.createNewFile();
-				this.status = new Status(new Date(0L));
-				write(new Date(0), 0L);
+				this.status = new Status(new Date());
+				write(null);
 				this.status = read(encoding);
 			} catch (IOException ioE) {
 				ioE.printStackTrace();
@@ -69,41 +72,67 @@ public class State implements IState {
 			reader.close();
 			
 			if (this.cache == null) {
-				return new nic.api.Status(new Date(0));
+				return new nic.api.Status(new Date());
 			}
 			
-			Object last = this.cache.get("last");
+			Object last = this.cache.get("latest");
 			if (last == null || (last instanceof Long && last == (Long)0L) || (last instanceof String && last.equals("")) || last instanceof Boolean) {
-				return new nic.api.Status(new Date(0));
+				return new nic.api.Status(new Date());
 			}
-			JSONObject entry = (JSONObject) this.cache.getObject(last);
-			Date retrieval = new Date((Long) entry.get("retrieval"));
-			return new nic.api.Status(retrieval);
+			JSONObject entry = this.cache.getObject(last);
+			nic.api.Status status = new nic.api.Status(new Date());
+			JSONArray files = entry.getArray("files");
+			Iterator<Object> fileIterator = files.iterator();
+			while (fileIterator.hasNext()) {
+				Object file = fileIterator.next();
+				JSONObject log;
+				if (file instanceof MapHolder) {
+					log = (JSONObject) ((MapHolder)file).map();
+				} else {
+					log = (JSONObject) file;
+				}
+				
+				Date created = new Date((Long) log.get("created"));
+				String path = (String) log.get("path");
+				String filename = (String) log.get("filename");
+				String modified = (String) log.get("modified");
+				Long size = (Long) log.get("size");
+				status.add(new Log(created, path, filename, modified, size));
+			}
+			return status;
 		} catch (IOException ioE) {
 			throw new TrackCorruptException(ioE);
 		}
 	}
 	
-	public boolean check(Date modified) {
-		return this.status != null ? this.status.check(modified) : true;
+	public boolean check(String path, String modified) {
+		return this.status != null ? this.status.check(path, modified) : true;
 	}
 	
-	public File write(Date modified, long size) {
-		String uuid = null;
+	public File write(Log log) {
+		String uuid = this.status.uuid().toString();
 		
-		if (status == null) {
+		if (log == null) {
 			this.cache = new JSONObject();
-			this.cache.put("last", new JSONArray());
+			this.cache.put("latest", null);
 		} else {
-			if ((uuid = this.status.save(modified, size)) != null) {
+			if (this.status.add(log)) {
 				JSONObject entry = new JSONObject();
-				entry.put("modified", this.status.modified().getTime());
-				entry.put("retrieval", this.status.retrieval().getTime());
-				entry.put("size", size);
+				entry.put("modified", log.modified());
+				entry.put("path", log.path());
+				entry.put("filename", log.filename());
+				entry.put("created", log.created());
+				JSONArray files;
 				if (this.cache == null) {
 					this.cache = new JSONObject();
+					files = new JSONArray();
+					this.cache.put("files", files);
+				} else {
+					files = this.cache.getArray("files");
 				}
-				this.cache.put("last", uuid);
+				
+				files.add(entry);
+				this.cache.put("latest", uuid);
 				this.cache.put(uuid, entry);
 			}
 		}
@@ -116,6 +145,10 @@ public class State implements IState {
 			e.printStackTrace();
 		}
 		
-		return new File("data", uuid);
+		File dataPath = new File("data", uuid);
+		if (!dataPath.exists()) {
+			dataPath.mkdir();
+		}
+		return dataPath;
 	}
 }

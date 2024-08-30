@@ -14,8 +14,8 @@ import nic.api.defence.TrackCorruptException;
 
 public class Program {
 	public static int MAJOR = 0;
-	public static int MINOR = 2;
-	public static short RELEASE = 3;
+	public static int MINOR = 3;
+	public static short RELEASE = 0;
 	
 	public static void main(String[] args) {
 		System.out.println("nicObtain v%d.%d_%d".formatted(MAJOR, MINOR, RELEASE));

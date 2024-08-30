@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.json.simple.generics.ListHolder;
 import org.json.simple.generics.MapHolder;
 
 /**
@@ -33,7 +34,20 @@ public class JSONObject extends HashMap<Object, Object> implements Map<Object, O
 		Object res =  super.get(key);
 		if(res==null)
 			return null;
-		return (JSONObject) ((MapHolder)res).map();
+		if (res instanceof MapHolder)
+			return (JSONObject) ((MapHolder)res).map();
+		else
+			return (JSONObject) res;
+	}
+	
+	public JSONArray getArray(Object key) {
+		Object res =  super.get(key);
+		if(res==null)
+			return null;
+		if (res instanceof ListHolder)
+			return (JSONArray) ((ListHolder)res).list();
+		else
+			return (JSONArray) res;
 	}
 
 	/**
