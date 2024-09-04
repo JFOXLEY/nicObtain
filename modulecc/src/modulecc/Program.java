@@ -19,7 +19,7 @@ public class Program {
 			File output = new File(args[0]);
 			Manifest manifest = new Manifest();
 		    manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-			switch(args[2]) {
+			switch (args[2]) {
 			case "module":
 		    	manifest.getMainAttributes().put(Program.SPECIFIER, args[3]);
 		    	break;

@@ -1,5 +1,6 @@
 package nic.api;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -15,16 +16,17 @@ public class Status {
 	public Status(Date initialised) {
 		this.initialised = initialised;
 		this.uuid = UUID.randomUUID();
+		this.logs = new ArrayList<Log>();
 	}
 	
-	public boolean check(String path, String modified) {
+	public boolean check(String path, String filename, String modified) {
 		for (Log log : logs) {
-			if (log.path().equalsIgnoreCase(path)) {
-				return modified.equals(log.modified());
+			if (log.path().equalsIgnoreCase(path) && log.file().equalsIgnoreCase(filename)) {
+				return !modified.equals(log.modified());
 			}
 		}
 		
-		return false;
+		return true;
 	}
 	
 	public boolean add(Log log) {
@@ -33,5 +35,9 @@ public class Status {
 	
 	public UUID uuid() {
 		return this.uuid;
+	}
+	
+	public Date initialised() {
+		return this.initialised;
 	}
 }

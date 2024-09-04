@@ -13,8 +13,8 @@ public class DkZvmFneJrT {
 		for (File f : folder.listFiles()) { 
 			if (f.isDirectory()) {
 				r = scanSources(relative, f, r);
-			} else if (f.isFile()) {
-				r += relativeF(relative, f) + " ";
+			} else if (f.isFile() && !f.getName().contains("-")) {
+				r += "\"" + relativeF(relative, f) + "\" ";
 			}
 		}
 		
@@ -82,7 +82,7 @@ public class DkZvmFneJrT {
 		File output = new File(directory);
 		output.mkdir();
 		String sources = scanSources(module, module, "");
-		String command = String.format("%s -d %s -cp ..\\org.json.simple.jar %s", javac, directory, sources);
+		String command = String.format("\"%s\" -d %s -cp ..\\org.json.simple.jar;..\\ftp.jar;..\nic.jar %s", javac, directory, sources);
 		System.out.println(command);
 	}
 }

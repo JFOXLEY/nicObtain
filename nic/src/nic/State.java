@@ -105,8 +105,8 @@ public class State implements IState {
 		}
 	}
 	
-	public boolean check(String path, String modified) {
-		return this.status != null ? this.status.check(path, modified) : true;
+	public boolean check(String modified, String path, String file) {
+		return this.status != null ? this.status.check(modified, path, file) : true;
 	}
 	
 	public File write(Log log) {
@@ -120,7 +120,7 @@ public class State implements IState {
 				JSONObject entry = new JSONObject();
 				entry.put("modified", log.modified());
 				entry.put("path", log.path());
-				entry.put("filename", log.filename());
+				entry.put("filename", log.file());
 				entry.put("created", log.created());
 				JSONArray files;
 				if (this.cache == null) {
@@ -129,6 +129,9 @@ public class State implements IState {
 					this.cache.put("files", files);
 				} else {
 					files = this.cache.getArray("files");
+					if (files == null) {
+						files = new JSONArray();
+					}
 				}
 				
 				files.add(entry);
@@ -145,10 +148,10 @@ public class State implements IState {
 			e.printStackTrace();
 		}
 		
-		File dataPath = new File("data", uuid);
-		if (!dataPath.exists()) {
-			dataPath.mkdir();
+		File path = new File("data", uuid);
+		if (!path.exists()) {
+			path.mkdir();
 		}
-		return dataPath;
+		return path;
 	}
 }

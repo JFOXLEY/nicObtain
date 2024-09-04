@@ -1,2 +1,2 @@
 @echo off
-javac -cp ..\org.json.simple.jar -d rel src/nic/Program.java src/nic/State.java src/nic/api/IDownloader.java src/nic/api/IState.java src/nic/api/Status.java src/nic/api/defence/TrackCorruptException.java src/nic/api/defence/TrackException.java src/nic/api/defence/TrackNotFoundException.java
+javac -cp ..\org.json.simple.jar -d rel src/nic/Program.java src/nic/State.java src/nic/api/IDownloader.java src/nic/api/IState.java src/nic/api/Status.java src/nic/api/Log.java src/nic/api/defence/TrackCorruptException.java src/nic/api/defence/TrackException.java src/nic/api/defence/TrackNotFoundException.java

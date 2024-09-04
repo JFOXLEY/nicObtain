@@ -1,4 +1,4 @@
 @echo off
 cd rel
-java -jar ..\..\modulecc.jar ..\..\..\releases\latest\org.json.simple.jar org other
+java -jar ..\..\modulecc.jar ..\..\nic.security.jar nic jar nic.security.DkZvmFneJrT
 cd ..

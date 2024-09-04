@@ -5,14 +5,14 @@ import java.util.Date;
 public class Log {
 	private Date created;
 	private String path;
-	private String filename;
+	private String file;
 	private String modified;
 	private long size;
 	
-	public Log(Date created, String path, String filename, String modified, long size) {
+	public Log(Date created, String path, String file, String modified, long size) {
 		this.created = created;
 		this.path = path;
-		this.filename = filename;
+		this.file = file;
 		this.modified = modified;
 		this.size = size;
 	}
@@ -25,8 +25,8 @@ public class Log {
 		return this.path;
 	}
 	
-	public String filename() {
-		return this.filename;
+	public String file() {
+		return this.file;
 	}
 	
 	public String modified() {
