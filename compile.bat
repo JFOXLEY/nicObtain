@@ -26,7 +26,7 @@ call jar.bat
 cd ..
 
 echo ======
-echo Compiling nicObtain [api v1]
+echo Compiling nicObtain [api v2]
 echo ======
 cd nic
 call compile.bat
